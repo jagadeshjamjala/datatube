@@ -121,7 +121,11 @@ def run_all(args: argparse.Namespace) -> int:
     """The nightly pipeline. Each step skips work already done, so a failed run can simply be re-run."""
     run_resolve(argparse.Namespace(refresh=False))  # only handles added to channels.yaml since last time
     run_ingest(argparse.Namespace(refresh=args.refresh))
-    run_classify(argparse.Namespace(offline=False, limit=args.limit))
+    if os.environ.get("ANTHROPIC_API_KEY"):
+        run_classify(argparse.Namespace(offline=False, limit=args.limit))
+    else:  # no LLM budget: keep stats and the site fresh; new videos wait unclassified (and unshown)
+        waiting = len(clf.pending_videos(connect(), load_channels()["defaults"]["min_duration_seconds"]))
+        print(f"ANTHROPIC_API_KEY not set: skipping classify, {waiting} videos waiting")
     run_build(argparse.Namespace())
     connect().execute("CHECKPOINT")  # fold the WAL into the .duckdb file before CI uploads it alone
     return 0

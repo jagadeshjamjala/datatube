@@ -47,6 +47,8 @@ One-time setup:
 1. Push the repo to GitHub.
 2. Settings → Secrets and variables → Actions: add secrets `YT_API_KEY` and `ANTHROPIC_API_KEY`.
    Optionally add a variable `DATATUBE_MODEL` to override the classifier model.
+   Without `ANTHROPIC_API_KEY`, `all` skips classify: stats and the site stay fresh, and new
+   videos wait unclassified (not shown) until a key is added.
 3. Settings → Pages → Source: **GitHub Actions**.
 4. Upload your local database once: `gh release create db data/datatube.duckdb --title db --notes "Pipeline database"`.
 5. Actions → Nightly refresh → **Run workflow**.
