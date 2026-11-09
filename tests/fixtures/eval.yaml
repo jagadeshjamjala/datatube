@@ -1,0 +1,480 @@
+# Hand-labelled eval set for the classifier: `python -m datatube eval`.
+# DRAFT labels written by Claude — review is_de and primary_topic for every video and fix any you disagree with.
+# primary_topic is null when is_de is false. Topic ids come from config/taxonomy.yaml.
+videos:
+- video_id: TB_hfpQleAc
+  title: CMU Database Systems - 18 Timestamp Ordering Concurrency Control (Fall 2018)
+  channel: CMU Database Group
+  minutes: 81
+  description: 'Slides PDF: https://15445.courses.cs.cmu.edu/fall2018/slides/18-timestampordering.pdf
+
+    Prof. Andy Pavlo (http://www.cs.cmu.edu/~pavlo/)
+
+    15-445/645 Intro to Database Systems (Fall 2018)
+
+    Carnegie Mellon University
+
+
+    https://15445.courses.cs.cmu.edu/fall2018'
+  is_de: true
+  primary_topic: databases
+- video_id: L2BHFnZ6XjE
+  title: Stream Processing - Noel Kwan
+  channel: DataTalksClub ⬛
+  minutes: 90
+  description: 'Links:
+
+
+    - Workshop doc: https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/cohorts/2024/workshops/rising-wave.md
+
+    - Workshop repo: ​​https://github.com/risingwavelabs/risingwave-data-talks-workshop-2024-03-04
+
+    - Slides: https://github.com/risingwavelabs/risingwave-data-talks-workshop-2024-03-04/blob/main/slides.pdf
+
+
+
+    Free Data Engineering course: https://github.com/DataTalksClub/data-engineering-zoomcamp
+
+
+    Join DataTalks.Club: https://datatalks.club/slack.html
+
+    Our events: https://datatalks.club/events.html'
+  is_de: true
+  primary_topic: streaming
+- video_id: ZPfwCGxY3dQ
+  title: 'Flink Forward Singapore 2025: Secret Sauce of Stream & Batch Convergence at Linkedin'
+  channel: Flink Forward
+  minutes: 28
+  description: 'Sanil Jain, Staff Software Engineer at LinkedIn, delivered this session at Flink Forward Asia Singapore 2025.
+
+    Discover how LinkedIn built a platform that lets the same Flink SQL code run in both streaming (Kafka) and batch (Iceberg)
+    modes. Topics include a unified managed-table abstraction, Airflow orchestration, schema/runtime unification, and real-world
+    wins from onboarding LinkedIn Ads model training and tracking pipelines—complete with late-data reconciliation and performance
+    tips.
+
+
+    Learn more and follow Flink Forward Asia for updates:
+
+    Official website: https://asia.flink-forward.org/
+
+    LinkedIn: https://www.linkedin.com/company/flink-forward-asia
+
+    X: https://x.com/flink_4_asia'
+  is_de: true
+  primary_topic: streaming
+- video_id: 16nYxLg3AyM
+  title: Advancing Spark - JSON Schema Drift with Databricks Autoloader
+  channel: Advancing Analytics
+  minutes: 17
+  description: 'We''ve come full circle - the whole idea of lakes was that you could land data without worrying about the
+    schema, but the move towards more managed, governed lakes using Delta has meant we need to apply a schema again... so
+    how do we balance evolving schemas with the need for managed structures?
+
+
+    The new schema drift features in Databricks Autoloader take a decent stab at this problem - when reading from JSON sources,
+    we can now pull the attributes we want into a known schema, but keep everything else as a json string that we can then
+    extract further details from. In this week''s video, Simon takes a look into the new feature, how it works and one or
+    two of the limitations.
+
+
+    As always, don''t f'
+  is_de: true
+  primary_topic: ingestion
+- video_id: p36YixNqGLg
+  title: Building Data Lakehouse from Scratch  -  End to End Data Engineering Project
+  channel: CodeWithYu
+  minutes: 55
+  description: "In this video you will learn to design, implement and maintain secure, scalable and cost effective lakehouse\
+    \ architectures leveraging Apache Spark, Apache Kafka, Apache Flink, Delta Lake, AWS, and open-source tools. Unlock data's\
+    \ full potential through advanced analytics and machine learning.\n\nPart 2: https://youtu.be/K84MEdiC1tM\n\nFULL COURSE\
+    \ AVAILABLE: https://sh.datamasterylab.com/costsaver\n\nLike this video? \nSupport us: https://www.youtube.com/@CodeWithYu/join\n\
+    \nTimestamps:\n0:00 Introduction\n1:24 The system architecture\n4:59 The modern system architecture\n9:15 Implementation\
+    \ of the Current Data Lakehouse on AWS Cloud\n11:33 Creating Databases for Data Lakehouse\n12:12 Using Glue crawler for "
+  is_de: true
+  primary_topic: lakehouse
+- video_id: GGdVfDdeNYs
+  title: End to End Modern Distributed Data Lakehouse using Apache Iceberg, Trino, Airflow, DBT and Minio
+  channel: CodeWithYu
+  minutes: 118
+  description: 'FULL VIDEO AVAILABLE HERE: https://youtu.be/2okBfWEMaFE
+
+
+    In this hands-on project, we build a modern distributed data lakehouse from scratch using cutting-edge open-source technologies:
+    Apache Iceberg, Trino, Airflow, DBT, MinIO, and Project Nessie.
+
+
+    This end-to-end data engineering project takes you through every stage of designing, setting up, and running a fully functional
+    data lakehouse with practical insights into distributed systems, data pipeline orchestration, query optimization, and
+    modern data lakehouse best practices.
+
+
+    What you’ll learn in this project:
+
+    ✅ High-level architecture of a modern data lakehouse
+
+    ✅ Apache Iceberg fundamentals and setup
+
+    ✅ Distributed Trino cluster (master-'
+  is_de: true
+  primary_topic: lakehouse
+- video_id: 5KWP15l1XVw
+  title: SQL vs dbt Models (& the value of CTEs)
+  channel: Kahan Data Solutions
+  minutes: 4
+  description: "- Get The Modern Data Checklist (free): https://bit.ly/kds-checklist\n- Work with me to modernize your data\
+    \ warehouse: https://bit.ly/kdsconsulting\n\n----- \n\nThere's a difference between writing SQL and designing a well structured\
+    \ dbt model.\n\nA lot of these nuances can be subtle.\n\nBut when combined, make a big difference in the success of your\
+    \ project.\n\nSo in today's video I want to talk about one of those nuances in particular.\n\nThe usage of CTEs, or Common\
+    \ Table Expressions.\n\nYou'll learn how they can:\n- Be used to provide functionality similar to Python\n- Improve the\
+    \ cleanliness and structure of your query \n- Simplify the process of de-bugging code\n\nEnjoy.\n\nLink to the Discourse\
+    \ article ref"
+  is_de: true
+  primary_topic: transformation
+- video_id: I8ZkxvgJYxM
+  title: Reviewing Airbnb's Data Engineering Strategy - Why Airbnb Hired More Data Engineers
+  channel: Seattle Data Guy
+  minutes: 21
+  description: "Setting up a data strategy is hard.\n\nHaving to reimplement a data strategy while your company is still operating\
+    \ is even harder.\n\nBut this is exactly what Airbnb did in 2019.\n\nThey realized they needed to re-evaluate their data\
+    \ strategy. \n\nTo give a quick snippet from this article, then here is a bit\n\nIn early 2019, the company made an unprecedented\
+    \ commitment to data quality and formed a comprehensive plan to address the organizational and technical challenges we\
+    \ were facing around data. Airbnb leadership signed off on the Data Quality initiative — a project of massive scale to\
+    \ rebuild the data warehouse from the ground up using new processes and technology.\n\nRead the rest here:\n\nhttps://me"
+  is_de: true
+  primary_topic: architecture
+- video_id: 5oL7STSClR4
+  title: Everybody wants to use Data Warehouses
+  channel: Andreas Kretz
+  minutes: 59
+  description: New YouTube architecture review, new Airflow course, Data warehouses greater than transactional databases and
+    more interesting polls
+  is_de: true
+  primary_topic: warehousing
+- video_id: d_dT2mOu99s
+  title: HDFS Architecture
+  channel: Sumit Mittal
+  minutes: 26
+  description: 'Trendytech Big Data Masters Program: https://www.trendytech.in
+
+
+    This Trendytech Big Data tutorial helps you to understand Big Data in HDFS & It''s underlying architecture.
+
+
+    Subscribe to our channel to get video updates. Hit the subscribe button above.
+
+
+    Know more about Trendytech Big Data training -  https://trendytech.in
+
+    Contact Number: +91 9353054810
+
+    Email: hello@trendytech.in'
+  is_de: true
+  primary_topic: batch_processing
+- video_id: aT7ovTNyRGM
+  title: 'Real-time Data Modeling & System Design Mock Interview for Data Engineers #interview #important'
+  channel: Sumit Mittal
+  minutes: 58
+  description: '𝐓𝐨 𝐞𝐧𝐡𝐚𝐧𝐜𝐞 𝐲𝐨𝐮𝐫 𝐜𝐚𝐫𝐞𝐞𝐫 𝐚𝐬 𝐚 𝐂𝐥𝐨𝐮𝐝 𝐃𝐚𝐭𝐚 𝐄𝐧𝐠𝐢𝐧𝐞𝐞𝐫, 𝐂𝐡𝐞𝐜𝐤 https://trendytech.in/?src=youtube&sub=mockdec  for
+    curated courses developed by me.
+
+
+    I have trained over 20,000+ professionals in the field of Data Engineering in the last 5 years.
+
+
+    𝐖𝐚𝐧𝐭 𝐭𝐨 𝐌𝐚𝐬𝐭𝐞𝐫 𝐒𝐐𝐋? 𝐋𝐞𝐚𝐫𝐧 𝐒𝐐𝐋 𝐭𝐡𝐞 𝐫𝐢𝐠𝐡𝐭 𝐰𝐚𝐲 𝐭𝐡𝐫𝐨𝐮𝐠𝐡 𝐭𝐡𝐞 𝐦𝐨𝐬𝐭 𝐬𝐨𝐮𝐠𝐡𝐭 𝐚𝐟𝐭𝐞𝐫 𝐜𝐨𝐮𝐫𝐬𝐞 - 𝐒𝐐𝐋 𝐂𝐡𝐚𝐦𝐩𝐢𝐨𝐧𝐬 𝐏𝐫𝐨𝐠𝐫𝐚𝐦!
+
+
+    "𝐀 8 𝐰𝐞𝐞𝐤 𝐏𝐫𝐨𝐠𝐫𝐚𝐦 𝐝𝐞𝐬𝐢𝐠𝐧𝐞𝐝 𝐭𝐨 𝐡𝐞𝐥𝐩 𝐲𝐨𝐮 𝐜𝐫𝐚𝐜𝐤 𝐭𝐡𝐞 𝐢𝐧𝐭𝐞𝐫𝐯𝐢𝐞𝐰𝐬 𝐨𝐟 𝐭𝐨𝐩 𝐩𝐫𝐨𝐝𝐮𝐜𝐭 𝐛𝐚𝐬𝐞𝐝 𝐜𝐨𝐦𝐩𝐚𝐧𝐢𝐞𝐬 𝐛𝐲 𝐝𝐞𝐯𝐞𝐥𝐨𝐩𝐢𝐧𝐠 𝐚 𝐭𝐡𝐨𝐮𝐠𝐡𝐭 𝐩𝐫𝐨𝐜𝐞𝐬𝐬
+    𝐚𝐧𝐝 𝐚𝐧 𝐚𝐩𝐩𝐫𝐨𝐚𝐜𝐡 𝐭𝐨 𝐬𝐨𝐥𝐯𝐞 𝐚𝐧 𝐮𝐧𝐬𝐞𝐞𝐧 𝐏𝐫𝐨𝐛𝐥𝐞𝐦."
+
+
+    𝐇𝐞𝐫𝐞 𝐢𝐬 𝐡𝐨𝐰 𝐲𝐨𝐮 𝐜𝐚𝐧 𝐫𝐞𝐠𝐢𝐬𝐭𝐞𝐫 𝐟𝐨𝐫 𝐭𝐡𝐞 𝐏𝐫𝐨𝐠𝐫𝐚𝐦 -
+
+    𝐑𝐞𝐠𝐢𝐬𝐭𝐫𝐚𝐭𝐢𝐨𝐧 𝐋𝐢𝐧𝐤 (𝐂𝐨𝐮𝐫𝐬𝐞 𝐀𝐜𝐜𝐞𝐬𝐬 𝐟𝐫𝐨𝐦 𝐈𝐧𝐝𝐢𝐚) : https://rzp.io/l/SQLINR
+
+    𝐑𝐞𝐠𝐢𝐬𝐭𝐫𝐚𝐭𝐢𝐨𝐧 𝐋𝐢𝐧𝐤 (𝐂𝐨𝐮𝐫𝐬𝐞 𝐀𝐜𝐜𝐞𝐬𝐬 𝐟𝐫𝐨𝐦 𝐨𝐮𝐭𝐬𝐢𝐝𝐞 𝐈𝐧𝐝𝐢𝐚) : https://rzp.i'
+  is_de: true
+  primary_topic: career
+- video_id: xN2PRAd8IZQ
+  title: REAL SQL Interview Question by a FAANG company | SQL Interview Query and Solution
+  channel: techTFQ
+  minutes: 47
+  description: "In this video, we shall see a REAL SQL Interview Question which was asked by a FAANG company (Facebook, Amazon,\
+    \ Apple, Netflix, Google). We shall explain how to solve this SQL Query step by step. \nThis SQL question was asked during\
+    \ an SQL interview process conducted by one of the tech giants (a FAANG company) recently. \n\nIf you’d like to practice\
+    \ SQL queries or explore my recorded SQL courses, check out my all-in-one SQL learning platform, SQLNest \U0001F447\n\
+    https://sqlnest.com/\n\nRecently one of my subscribers, got a job in one of the FAANG companies (Facebook, Amazon, Apple,\
+    \ Netflix, Google) and he shared with me an SQL Questions which he was asked during his interview process. He wanted to\
+    \ know wha"
+  is_de: true
+  primary_topic: sql
+- video_id: FlyoOCY3HKs
+  title: 'Go Big or Go Home: Approaching Kafka Replication at Scale'
+  channel: Confluent, an IBM Company
+  minutes: 32
+  description: "Processing a lot of data with Kafka means knowing how and when to scale horizontally and vertically. When\
+    \ you’ve exhausted the boundaries of scaling inside a single cluster, replication becomes critical but sometimes standard\
+    \ replication is not enough.\n   \n  New Relic once earned the dubious title of “World’s Largest Kafka Cluster”, and in\
+    \ our journey to break this cluster into dozens of smaller clusters, we needed to route events between clusters and topics\
+    \ based on headers.\n   \n  At the time, this meant we had to do it ourselves. Starting out, our goal was fan out (one-to-many)\
+    \ replication. Since then our needs have expanded to include many-to-one and many-to-many replication.\n  \n  In this"
+  is_de: true
+  primary_topic: streaming
+- video_id: rQRJUHNNFps
+  title: How Redica Transformed Their Data With Airflow and Snowflake with Shankar Mahindar
+  channel: Astronomer
+  minutes: 24
+  description: 'The life sciences industry relies on data accuracy, regulatory insight and quality intelligence. Building
+    a unified system that keeps these elements aligned is no small feat.
+
+
+    In this episode, we welcome Shankar Mahindar, Senior Data Engineer II at Redica Systems. We discuss how the team restructures
+    its data platform with Airflow to strengthen governance, reduce compliance risk and improve customer experience.
+
+
+    Key Takeaways:
+
+
+    00:00 Introduction.
+
+    01:53 A focused analytics platform reduces compliance risk in life sciences.
+
+    07:31 A centralized warehouse orchestrated by Airflow strengthens governance.
+
+    09:12 Managed orchestration keeps attention on analytics and outcomes.
+
+    10:32 A modern transfo'
+  is_de: true
+  primary_topic: orchestration
+- video_id: uWYM3Jan2bY
+  title: Unity Catalog Fine-Grained Access Controls on External Engines
+  channel: Databricks
+  minutes: 6
+  description: "See how Unity Catalog enforces row filters and column masks identically,  whether you're querying from Databricks\
+    \ or from open-source Apache Spark running on a VM outside your workspace. This demo walks through defining ABAC policies\
+    \ once in UC, verifying enforcement on Databricks serverless SQL, then running the same query from OSS Delta-Spark on\
+    \ EC2 to show identical results. Finally, we demonstrate external engines creating and writing to managed tables with\
+    \ catalog-managed commits, fully governed and automatically optimized. \n\nLearn more about Catalog Commits: https://www.databricks.com/blog/convergence-open-table-formats-and-open-catalogs-catalog-commits-generally-available"
+  is_de: true
+  primary_topic: governance
+- video_id: 2yuyIl31ypM
+  title: 'The new dagster-dbt integration: an overview of the new capabilities'
+  channel: Dagster
+  minutes: 12
+  description: "dbt is the most popular tool for data transformations among Dagster users.  The Dagster Labs team has made\
+    \ significant enhancements to the integration between these two leading open-source solutions. \n\nIn this video, Rex\
+    \ Ledesma walks us through the features and capabilities of the dbt integration.\n\nThe reference documentation for the\
+    \ debt integration can be found at https://docs.dagster.io/integrations/dbt\n\nTry Dagster today with a 30-day free trial:\
+    \ https://dagster.io/lp/dagster-cloud-trial"
+  is_de: true
+  primary_topic: orchestration
+- video_id: r0U7aMTEKkI
+  title: 'Data Quality Meetup #9: Running dbt at scale'
+  channel: Datafold
+  minutes: 14
+  description: Alexandra Gronemeyer, Lead Analytics Engineer @ Airbyte joined the Data Quality Meetup to discuss how a small
+    but mighty team of two has approach adoption and evolution of dbt.
+  is_de: true
+  primary_topic: transformation
+- video_id: j5KH4qalo2w
+  title: 'Data Quality Meetup# 4: Panel Discussion - Lessons from Shopify, Lyft, HealthJoy & Devoted Health'
+  channel: Datafold
+  minutes: 31
+  description: 'The panelists discuss the following:
+
+
+    1. Reliable change management and areas of highest ROI in improving trust and minimizing downtime?
+
+    2. Enabling vs Restricting: Maintaining the right balance when scaling up
+
+    3. Maintaining a high speed of development in companies that operate within highly regulated industries
+
+    4. Solutions that data quality vendors and developers still have to deliver to the community in terms of reliable data
+    product building Sign up for the next Data Quality Meetup: https://bit.ly/3yiUH2H
+
+    Join our Meetup Group: https://www.meetup.com/data-quality-meetup/'
+  is_de: true
+  primary_topic: data_quality
+- video_id: DnBds8z0eFw
+  title: 'What''s New: Accelerating Data Ecosystem Migrations To Snowflake'
+  channel: Snowflake Inc.
+  minutes: 36
+  description: "Learn how to accelerate and automate your data ecosystem migrations with SnowConvert AI, powered by Snowflake\
+    \ Cortex Agents. SnowConvert AI is your free, automated solution designed to dramatically reduce the complexities, costs,\
+    \ and timelines associated with data warehouse, BI, and ETL migrations. It intelligently analyzes your existing code,\
+    \ automating code conversion, data validation, and streamlining the entire migration process. Join us for an overview\
+    \ of the solution, migration best practices, and live demos.\n\n❄Join our YouTube community❄ https://bit.ly/3lzfeeB \n\
+    \nLearn more about Snowflake:\n➡️ Website: https://www.snowflake.com \n➡️ Careers: http://careers.snowflake.com\n➡️ Podcast\
+    \ page:"
+  is_de: true
+  primary_topic: migration
+- video_id: pwmQ2RQLYTE
+  title: 'The DuckLake Lakehouse: From Getting Started to Going Fast'
+  channel: MotherDuck
+  minutes: 60
+  description: 'DuckLake combines the power of an open lakehouse format with the simplicity you''d expect from a database
+    - no sprawling metadata files, no catalog servers to manage, no "big data tax." On MotherDuck, you can spin up a fully
+    managed DuckLake in a single SQL statement and start querying petabyte-scale data in minutes, not weeks.
+
+
+    But simplicity doesn''t mean there''s nothing to tune. Like any powerful technology, DuckLake rewards thoughtful configuration.
+
+
+    In this webinar, we''ll start with why DuckLake is such a compelling choice:
+
+    -​Database-backed metadata that eliminates the small files problem
+
+    -ACID transactions across multiple tables
+
+    -Hidden partition pruning
+
+    -Data inlining for small dataset'
+  is_de: true
+  primary_topic: lakehouse
+- video_id: lyYCAtLnjxw
+  title: 'The Data Ecosystem Is Ready for ETL To Be Dead | Charles Giardina | #movedata2022'
+  channel: Airbyte
+  minutes: 10
+  description: 'Charles Giardina discusses why ETL might be approaching its end in the evolving data ecosystem. Discover how
+    ELT tools are transforming data integration and infrastructure, addressing key engineering problems and integration issues
+    faced in modern data environments.
+
+
+    Subscribe to our newsletter: https://airbyte.com/newsletter
+
+    Learn more about Airbyte: https://airbyte.com
+
+    GitHub: https://github.com/airbytehq/airbyte
+
+    X: https://x.com/airbytehq
+
+    LinkedIn: https://www.linkedin.com/company/airbytehq/'
+  is_de: true
+  primary_topic: ingestion
+- video_id: 1jtM6bzQgRg
+  title: Java Cookbook • Ian Darwin & Jeanne Boyarsky • GOTO 2026
+  channel: GOTO Conferences
+  minutes: 24
+  description: "This interview was recorded for the GOTO Book Club. #GOTOcon #GOTObookclub\nhttp://gotopia.tech/bookclub\n\
+    \nIan F. Darwin - Java, Android & Unix Developer, Trainer, Mentor & Author of \"Java Cookbook\" @IanDarwin \nJeanne Boyarsky\
+    \ - Oracle Java Champion, Co-Author of \"Real-World Java\" & \"OCP 21 Java Cert Book\" @jeanneboyarsky8071 \n\nCheck out\
+    \ more here:\nhttps://gotopia.tech/episodes/438\n\nRESOURCES\nIan\nhttps://fosstodon.org/@IanDarwin\nhttps://x.com/Ian_Darwin\n\
+    https://github.com/IanDarwin\nhttps://www.linkedin.com/in/idarwin\nhttps://www.darwinsys.com\n\nJeanne\nhttps://bsky.app/profile/jeanneboyarsky.bsky.social\n\
+    https://mastodon.social/@jeanneboyarsky\nhttps://x.com/jeanneboyarsky\nhttps://github.com/boyar"
+  is_de: false
+  primary_topic: null
+- video_id: i5E48THNRe4
+  title: '"Taking PHP Seriously" by Keith Adams (2013)'
+  channel: Strange Loop Conference
+  minutes: 41
+  description: 'PHP is as often maligned as it is widely used. Conventional wisdom is that PHP is an inferior language, whose
+    popularity is due solely to legacy effects. The success of projects written in PHP, according to this framing, proves
+    only that with enough thrust, even pigs can fly.
+
+
+    This point of view glosses over some critical details. PHP has made unusual choices in the design space of programmer
+    workflow, concurrency, and shared state. Even relative to its peer dynamic languages, these choices increase developer
+    efficiency, reduce the opportunity for bugs, and limit the cost of bugs that slip through. These benefits have actively
+    contributed to the technical and social success of Facebook, Word'
+  is_de: false
+  primary_topic: null
+- video_id: Gs2gDaNtH9I
+  title: Hajime Takeda - TinyTroupe Enhancing Marketing Insights through LLM- PyData Global 2025
+  channel: PyData
+  minutes: 30
+  description: 'Understanding customer behavior is essential in marketing. Traditionally, marketers rely on methods such as
+    surveys, customer interviews, and focus groups to gather insights. However, these approaches can be expensive, time-consuming,
+    and limited in scale and diversity.
+
+    Recently, multi-agent simulation powered by Large Language Models (LLMs) is emerging as an innovative technique. TinyTroupe,
+    for example, enables the creation of different personas (e.g., budget‑minded Gen‑Z shoppers, premium‑seeking parents),
+    allowing marketers to predict and optimize advertising effectiveness or replace time-consuming interviews rapidly.
+
+    In this talk, I will introduce the key concepts of LLM-powered multi-a'
+  is_de: false
+  primary_topic: null
+- video_id: F2szczrXXqQ
+  title: 'Tableau Joins: Inner, Left, Right, Full Join | #Tableau Course #34'
+  channel: Data with Baraa
+  minutes: 10
+  description: 'In this video, we will learn how to combine two tables in Tableau to create a single table using joins.
+
+    - *Tableau Full Package* https://www.datawithbaraa.com/course/tableau-ultimate-full-course-for-beginners
+
+    - *Free Tableau materials* https://www.datawithbaraa.com/wiki/tableau
+
+    - *Full free Tableau course* https://youtu.be/K3pXnbniUcM
+
+
+    ━━━━━━━━━━━━━━━━━━━━
+
+
+    *🏆 My Academy (recommended)*
+
+    - *SQL* https://www.datawithbaraa.com/course/sql-full-course-for-beginners
+
+    - *SQL Handbook* https://academy.datawithbaraa.com/l/digital_download/1087406/the-sql-handbook
+
+    - *Python* https://www.datawithbaraa.com/course/the-ultimate-python-mastery
+
+    - *Python Handbook* https://academy.datawithbaraa.com/l/digital_d'
+  is_de: false
+  primary_topic: null
+- video_id: Vp9BQUXyJjY
+  title: REPLAY Power BI tips from the Pros - LIVE (June 11, 2022)
+  channel: Guy in a Cube
+  minutes: 74
+  description: "Join us live as we answer your questions about Power BI!\n\n\U0001F4A5 30 minutes: Open Q&A (Public)\n\U0001F4A5\
+    \ Then... Members Only Chat (Public can watch & Super Chat for Questions)\n\n\U0001F4E2 RULES FOR Q&A: \U0001F4E2\n\n\U0001F449\
+    \ Put a \"Q:\" in front of your comment to help us identify questions!\n\U0001F449 Super chats take priority\n\U0001F449\
+    \ Do NOT re-post your questions! We'll get to as many questions as we can.\n\U0001F449 If you SPAM your question, you\
+    \ will be put in timeout\n\n\U0001F4E2 Become a member: https://guyinacu.be/membership \r\n\r\n*******************\r\n\
+    \r\nWant to take your Power BI skills to the next level? We have training courses available to help you with your journey.\r\
+    \n\r\n\U0001F393 Guy in a Cube courses: https://guyinacu.be/courses\r\n\r\n*******************\r\nLET'S CONN"
+  is_de: false
+  primary_topic: null
+- video_id: s3RBcDpabo0
+  title: MLOps Vs  DevOps Explained
+  channel: phData
+  minutes: 9
+  description: "In this video, you’ll learn about the key differences between MLOps and DevOps from Machine Learning Engineer,\
+    \ Safwan Islam. To read more about this subject, please visit our blog \U0001F447\n https://www.phdata.io/blog/mlops-vs-devops-whats-the-difference/\n\
+    \nLearn more about phData: phdata.io\n\nAll music provided by bensound.com"
+  is_de: false
+  primary_topic: null
+- video_id: W54cRxp-bSA
+  title: Build a multi-agent system using ADK & MCP
+  channel: Google Cloud Tech
+  minutes: 11
+  description: 'Join Gemini Enterprise Agent Ready (GEAR) for the latest agent resources here. → https://goo.gle/3Srblgl
+
+
+    Learn how to build a production-grade agent with Google''s Agent Development Kit (ADK), the Model Context Protocol (MCP),
+    and Gemini 3 Flash. Google Developer Expert, Jigyasa Grover showcases “Critics Cut,” a multilingual, context-aware AI
+    assistant designed to eliminate the endless scrolling when looking for something to watch.
+
+
+    Speakers: Jigyasa Grover
+
+    Products Mentioned: Agent Development Kit, Model Context Protocol'
+  is_de: false
+  primary_topic: null
+- video_id: sQsLI-OaSHk
+  title: 8. Azure Cost Analysis, Budgets and Cost Alerts |Azure Beginners Tutorials
+  channel: Mr. K Talks Tech
+  minutes: 14
+  description: "#azurecost  #microsoft #microsoftazure #whatisazure #azuretutorialforbeginners \n\nIn this Video, I have given\
+    \ a detailed introduction to Azure Cost Management in Tamil, this covers the topics like, how we could analyze the cost\
+    \ incurred in Azure and how we could set up the budgets in azure subscription to get an alerts via email if the budget\
+    \ exceeds. \n\n– – – Book a Private One on One Meeting with me (1 Hour) – – –\n\nhttps://www.buymeacoffee.com/mrktalkstech/e/166354\n\
+    \n– – – \"Express your encouragement by brewing up a cup of support for me\" – – –\n\nhttps://www.buymeacoffee.com/mrktalkstech\n\
+    \n– – – Other useful playlist: – – –\n\nAzure Data Factory Playlist: https://www.youtube.com/playlist?list=PLr"
+  is_de: false
+  primary_topic: null
+- video_id: yBnQwhmTyP8
+  title: 'Big Tech Fast-Track: Senior to Staff in less than 3 years'
+  channel: DataExpert
+  minutes: 60
+  description: Join this event to learn how to go from senior engineer to staff engineer as quickly as possible!
+  is_de: false
+  primary_topic: null

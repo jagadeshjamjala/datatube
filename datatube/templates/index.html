@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DataTube: videos for data engineers</title>
+<meta name="description" content="A curated, searchable library of data engineering videos.">
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: light-dark(#f7f7f8, #121316);
+    --panel: light-dark(#ffffff, #1b1d22);
+    --text: light-dark(#17181c, #e8e9ec);
+    --muted: light-dark(#5c6070, #a0a4b0);
+    --line: light-dark(#e2e3e8, #2c2f36);
+    --accent: light-dark(#2457d6, #7aa2ff);
+    --chip: light-dark(#eef0f5, #262931);
+    --thumb: light-dark(#dfe2ea, #2a2d35);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  button, input, select { font: inherit; color: inherit; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  header { position: sticky; top: 0; z-index: 2; display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+           padding: 10px 16px; background: var(--panel); border-bottom: 1px solid var(--line); }
+  h1 { margin: 0 12px 0 0; font-size: 20px; }
+  h1 span { color: var(--accent); }
+  #q { flex: 1 1 220px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); }
+  select, .icon { padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); cursor: pointer; }
+
+  .layout { display: grid; grid-template-columns: 230px 1fr; gap: 20px; padding: 16px; max-width: 1500px; margin: 0 auto; }
+  nav { position: sticky; top: 72px; align-self: start; max-height: calc(100vh - 90px); overflow-y: auto; }
+  nav button { display: flex; justify-content: space-between; width: 100%; padding: 6px 10px; border: 0; border-radius: 6px;
+               background: none; text-align: left; cursor: pointer; }
+  nav button:hover { background: var(--chip); }
+  nav button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+  nav .n { opacity: .7; margin-left: 8px; }
+
+  .filters { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; margin-bottom: 10px; }
+  .group { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .group b { font-size: 13px; color: var(--muted); font-weight: 600; margin-right: 2px; }
+  .chip { padding: 4px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--chip);
+          cursor: pointer; font-size: 13px; }
+  .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+  label.check { display: flex; gap: 6px; align-items: center; font-size: 14px; cursor: pointer; }
+  #count { color: var(--muted); margin: 6px 0 12px; font-size: 14px; }
+
+  #grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+  .card { display: flex; flex-direction: column; color: inherit; text-decoration: none; background: var(--panel);
+          border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .card:hover { border-color: var(--accent); }
+  .thumb { position: relative; aspect-ratio: 16 / 9; background: var(--thumb); }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .dur { position: absolute; right: 6px; bottom: 6px; padding: 1px 6px; border-radius: 4px;
+         background: rgba(0, 0, 0, .8); color: #fff; font-size: 12px; font-weight: 600; }
+  .body { padding: 10px 12px 12px; display: flex; flex-direction: column; gap: 6px; }
+  .card h3 { margin: 0; font-size: 15px; line-height: 1.3; }
+  .meta, .summary { margin: 0; color: var(--muted); font-size: 13px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .tags span { padding: 1px 7px; border-radius: 999px; background: var(--chip); font-size: 12px; }
+  .tags .ever { color: light-dark(#17703a, #6fd396); }
+  #more { display: block; margin: 22px auto; padding: 9px 22px; border: 1px solid var(--line); border-radius: 8px;
+          background: var(--panel); cursor: pointer; }
+  #more[hidden] { display: none; }  /* display:block above would override the hidden attribute */
+  footer { padding: 20px 16px 30px; text-align: center; color: var(--muted); font-size: 13px; }
+
+  dialog { width: min(960px, 94vw); padding: 0; border: 0; border-radius: 10px; background: var(--panel); color: var(--text); }
+  dialog::backdrop { background: rgba(0, 0, 0, .75); }
+  dialog iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; background: #000; }
+  .bar { display: flex; gap: 12px; align-items: center; padding: 10px 14px; }
+  .bar h2 { flex: 1; margin: 0; font-size: 15px; }
+  .bar a { color: var(--accent); font-size: 14px; white-space: nowrap; }
+
+  @media (max-width: 720px) {
+    .layout { display: block; padding: 10px; }
+    nav { position: static; display: flex; gap: 6px; overflow-x: auto; max-height: none; margin-bottom: 10px; padding-bottom: 4px; }
+    nav button { width: auto; white-space: nowrap; background: var(--chip); }
+    .group { flex-wrap: nowrap; overflow-x: auto; max-width: 100%; padding-bottom: 2px; }
+    .chip { white-space: nowrap; }
+    h1 { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Data<span>Tube</span></h1>
+  <input id="q" type="search" placeholder="Search titles, channels, summaries" aria-label="Search videos">
+  <select id="sort" aria-label="Sort by">
+    <option value="best">Best</option>
+    <option value="newest">Newest</option>
+    <option value="views">Most viewed</option>
+  </select>
+  <button id="theme" class="icon" type="button" aria-label="Toggle dark mode">◐</button>
+</header>
+<div class="layout">
+  <nav id="topics" aria-label="Topics"></nav>
+  <main>
+    <div class="filters">
+      <div class="group" id="levels"><b>Level</b></div>
+      <div class="group" id="formats"><b>Format</b></div>
+      <label class="check"><input type="checkbox" id="evergreen"> Evergreen only</label>
+    </div>
+    <p id="count" aria-live="polite"></p>
+    <div id="grid"></div>
+    <button id="more" type="button">Show more</button>
+  </main>
+</div>
+<footer id="footer"></footer>
+<dialog id="player" aria-labelledby="player-title">
+  <iframe id="frame" title="Video player" allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+          referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  <div class="bar">
+    <h2 id="player-title"></h2>
+    <a id="player-link" target="_blank" rel="noopener">Watch on YouTube</a>
+    <button id="close" class="icon" type="button" aria-label="Close">✕</button>
+  </div>
+</dialog>
+<script src="data.js"></script>
+<script>
+// All video text comes from the internet: it only ever reaches the page via textContent.
+const D = window.DATATUBE;
+const PAGE = 60;
+const state = { topic: null, level: null, format: null, evergreen: false, words: [], sort: "best", shown: PAGE };
+const $ = (id) => document.getElementById(id);
+const topicLabel = Object.fromEntries(D.topics.map((t) => [t.id, t.label]));
+const compact = new Intl.NumberFormat("en", { notation: "compact" });
+
+D.videos.forEach((v, i) => {
+  v.rank = i;  // data.js is already in "best" order
+  v.text = `${v.title} ${v.channel} ${v.summary}`.toLowerCase();
+});
+
+function el(tag, cls, text) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text != null) e.textContent = text;
+  return e;
+}
+
+function duration(s) {
+  const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), sec = String(s % 60).padStart(2, "0");
+  return h ? `${h}:${String(m).padStart(2, "0")}:${sec}` : `${m}:${sec}`;
+}
+
+function toggle(button, on) { button.setAttribute("aria-pressed", String(on)); }
+
+// ---------- filters ----------
+
+function matches(v, ignoreTopic) {
+  if (!ignoreTopic && state.topic && !v.topics.includes(state.topic)) return false;
+  if (state.level && v.level !== state.level) return false;
+  if (state.format && v.format !== state.format) return false;
+  if (state.evergreen && !v.evergreen) return false;
+  return state.words.every((w) => v.text.includes(w));
+}
+
+const SORTS = {
+  best: (a, b) => a.rank - b.rank,
+  newest: (a, b) => b.published.localeCompare(a.published) || a.rank - b.rank,
+  views: (a, b) => b.views - a.views,
+};
+
+// Topic buttons are built once; render() only updates their counts and pressed state.
+const topicButtons = new Map();
+function topicButton(id, label) {
+  const b = el("button");
+  b.type = "button";
+  const count = el("span", "n");
+  b.append(el("span", null, label), count);
+  b.addEventListener("click", () => { state.topic = id; update(); });
+  topicButtons.set(id, { b, count });
+  $("topics").append(b);
+}
+topicButton(null, "All topics");
+D.topics.forEach((t) => topicButton(t.id, t.label));
+
+function chips(containerId, key, values) {
+  const buttons = [["All", null], ...values.map((v) => [v.replaceAll("_", " "), v])].map(([label, value]) => {
+    const b = el("button", "chip", label);
+    b.type = "button";
+    b.addEventListener("click", () => {
+      state[key] = value;
+      buttons.forEach(([btn, val]) => toggle(btn, val === value));
+      update();
+    });
+    $(containerId).append(b);
+    return [b, value];
+  });
+  buttons.forEach(([btn, val]) => toggle(btn, val === null));
+}
+chips("levels", "level", D.levels);
+chips("formats", "format", D.formats);
+
+$("q").addEventListener("input", (e) => { state.words = e.target.value.toLowerCase().split(/\s+/).filter(Boolean); update(); });
+$("sort").addEventListener("change", (e) => { state.sort = e.target.value; update(); });
+$("evergreen").addEventListener("change", (e) => { state.evergreen = e.target.checked; update(); });
+$("more").addEventListener("click", () => { state.shown += PAGE; render(); });
+
+function update() { state.shown = PAGE; render(); }
+
+// ---------- rendering ----------
+
+function card(v) {
+  const a = el("a", "card");
+  a.href = `https://www.youtube.com/watch?v=${encodeURIComponent(v.id)}`;
+  const thumb = el("div", "thumb");
+  const img = el("img");
+  img.loading = "lazy";
+  img.alt = "";
+  img.src = `https://i.ytimg.com/vi/${encodeURIComponent(v.id)}/mqdefault.jpg`;
+  img.addEventListener("error", () => img.remove());
+  thumb.append(img, el("span", "dur", duration(v.duration)));
+
+  const tags = el("div", "tags");
+  v.topics.forEach((t) => tags.append(el("span", null, topicLabel[t] || t)));
+  tags.append(el("span", null, v.level), el("span", null, v.format.replaceAll("_", " ")));
+  if (v.evergreen) tags.append(el("span", "ever", "evergreen"));
+
+  const year = v.published.slice(0, 4);
+  const body = el("div", "body");
+  body.append(
+    el("h3", null, v.title),
+    el("p", "meta", [v.channel, `${compact.format(v.views)} views`, year].filter(Boolean).join(" · ")),
+    tags,
+    el("p", "summary", v.summary),
+  );
+  a.append(thumb, body);
+  if (!v.embeddable) {  // the uploader blocked embedding: the player would only show "Video unavailable"
+    a.target = "_blank";
+    a.rel = "noopener";
+    return a;
+  }
+  a.addEventListener("click", (e) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button) return;  // let new-tab clicks through
+    e.preventDefault();
+    play(v);
+  });
+  return a;
+}
+
+function render() {
+  const base = D.videos.filter((v) => matches(v, true));
+  const counts = new Map();
+  base.forEach((v) => v.topics.forEach((t) => counts.set(t, (counts.get(t) || 0) + 1)));
+  topicButtons.forEach(({ b, count }, id) => {
+    count.textContent = (id === null ? base.length : counts.get(id) || 0).toLocaleString();
+    toggle(b, id === state.topic);
+  });
+
+  const list = base.filter((v) => !state.topic || v.topics.includes(state.topic)).sort(SORTS[state.sort]);
+  $("grid").replaceChildren(...list.slice(0, state.shown).map(card));
+  $("count").textContent = `${list.length.toLocaleString()} videos`;
+  $("more").hidden = list.length <= state.shown;
+}
+
+// ---------- player ----------
+
+const player = $("player");
+function play(v) {
+  $("frame").src = `https://www.youtube-nocookie.com/embed/${encodeURIComponent(v.id)}?autoplay=1`;
+  $("player-title").textContent = v.title;
+  $("player-link").href = `https://www.youtube.com/watch?v=${encodeURIComponent(v.id)}`;
+  player.showModal();
+}
+player.addEventListener("close", () => { $("frame").src = "about:blank"; });  // stops playback
+player.addEventListener("click", (e) => { if (e.target === player) player.close(); });  // backdrop
+$("close").addEventListener("click", () => player.close());
+
+// ---------- theme ----------
+
+const dark = matchMedia("(prefers-color-scheme: dark)");
+function applyTheme(theme) { document.documentElement.style.colorScheme = theme || "light dark"; }
+try { applyTheme(localStorage.getItem("theme")); } catch { /* storage blocked: follow the system */ }
+$("theme").addEventListener("click", () => {
+  const current = document.documentElement.style.colorScheme;
+  const isDark = current === "dark" || (current !== "light" && dark.matches);
+  const next = isDark ? "light" : "dark";
+  applyTheme(next);
+  try { localStorage.setItem("theme", next); } catch { /* not persisted */ }
+});
+
+$("footer").textContent = `${D.videos.length.toLocaleString()} videos · updated ${D.generated} · ` +
+  "ranked from YouTube data, tagged by an LLM, so expect the odd mistake.";
+render();
+</script>
+</body>
+</html>

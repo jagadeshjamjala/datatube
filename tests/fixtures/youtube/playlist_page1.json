@@ -1,0 +1,10 @@
+{
+  "kind": "youtube#playlistItemListResponse",
+  "nextPageToken": "PAGE2",
+  "pageInfo": {"totalResults": 5, "resultsPerPage": 3},
+  "items": [
+    {"contentDetails": {"videoId": "vid_1hour", "videoPublishedAt": "2024-03-01T10:00:00Z"}},
+    {"contentDetails": {"videoId": "vid_4min", "videoPublishedAt": "2024-02-01T10:00:00Z"}},
+    {"contentDetails": {"videoId": "vid_short", "videoPublishedAt": "2024-01-01T10:00:00Z"}}
+  ]
+}

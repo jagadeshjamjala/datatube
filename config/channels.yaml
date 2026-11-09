@@ -1,0 +1,50 @@
+# Seed channels. tier: 1 = core data engineering, 2 = mixed content.
+# Handles are checked by `python -m datatube resolve`, which prints any it cannot find.
+defaults:
+  max_videos: 500
+  min_duration_seconds: 240
+
+creators:
+  - {handle: "@SeattleDataGuy", tier: 1, note: "Ben Rogojan; DE careers, architecture, migration stories"}
+  - {handle: "@EcZachly_", tier: 1, note: "Zach Wilson; data modeling, bootcamp content"}
+  - {handle: "@DarshilParmar", tier: 1, note: "End-to-end DE projects"}
+  - {handle: "@andreaskayy", tier: 1, note: "Andreas Kretz; Learn Data Engineering"}
+  - {handle: "@DataWithBaraa", tier: 1, note: "SQL and data warehouse courses"}
+  - {handle: "@ankitbansal6", tier: 1, note: "SQL and DE interview prep"}
+  - {handle: "@BryanCafferky", tier: 1, note: "Databricks, Spark, Python"}
+  - {handle: "@AdvancingAnalytics", tier: 1, note: "Lakehouse and Azure data platform"}
+  - {handle: "@KahanDataSolutions", tier: 1, note: "Modern data stack, dbt, Snowflake"}
+  - {handle: "@JoeReisData", tier: 1, note: "Joe Reis; Fundamentals of Data Engineering author (formerly Ternary Data)"}
+  - {handle: "@CodeWithYu", tier: 1, note: "Yusuf Ganiyu; Kafka, Spark, Airflow end-to-end projects"}
+  - {handle: "@techTFQ", tier: 1, note: "SQL tutorials and query patterns"}
+  - {handle: "@sumitmittal07", tier: 1, note: "Big data, Spark, Hadoop-to-cloud"}
+  - {handle: "@mr.ktalkstech", tier: 1, note: "Azure Data Factory, Databricks, ADF migration"}
+  - {handle: "@rockthejvm", tier: 2, note: "Spark and Scala; also non-DE Scala content"}
+  - {handle: "@GuyInACube", tier: 2, note: "Microsoft Fabric / Power BI; Synapse to Fabric moves"}
+
+vendors_and_projects:
+  - {handle: "@Databricks", tier: 2, max_videos: 300, note: "Includes Data + AI Summit talks and migration sessions"}
+  - {handle: "@snowflakeinc", tier: 2, max_videos: 300, note: "Includes Summit; Teradata/Oracle migration talks"}
+  - {handle: "@dbt-labs", tier: 2, note: "Includes Coalesce talks"}
+  - {handle: "@Confluent", tier: 2, note: "Kafka; includes Current / Kafka Summit talks"}
+  - {handle: "@Astronomer", tier: 2, note: "Airflow"}
+  - {handle: "@dagsterio", tier: 2}
+  - {handle: "@PrefectIO", tier: 2, note: "Prefect orchestration"}
+  - {handle: "@airbytehq", tier: 2}
+  - {handle: "@motherduckdb", tier: 2, note: "DuckDB"}
+  - {handle: "@ClickHouseDB", tier: 2, note: "OLAP engine internals and use cases"}
+  - {handle: "@StarburstData", tier: 2, note: "Trino; Hadoop/Hive migration content"}
+  - {handle: "@datafold7706", tier: 2, note: "Datafold; data migration validation, legacy-to-cloud SQL translation"}
+  - {handle: "@phData", tier: 2, note: "Consultancy; Snowflake and Databricks migrations"}
+  - {handle: "@googlecloudtech", tier: 2, max_videos: 200, note: "Mostly non-DE; classifier filters"}
+  - {handle: "@AWSEventsChannel", tier: 2, max_videos: 300, note: "re:Invent; mostly non-DE; classifier filters"}
+
+conferences:
+  - {handle: "@aicouncilconf", tier: 2, note: "Formerly Data Council; older talks are core DE, newer lean AI"}
+  - {handle: "@DataTalksClub", tier: 1, note: "DE Zoomcamp and community talks"}
+  - {handle: "@PyDataTV", tier: 2}
+  - {handle: "@CMUDatabaseGroup", tier: 2, note: "Database internals lectures and talks"}
+  - {handle: "@FlinkForward", tier: 2, note: "Streaming talks"}
+  - {handle: "@InfoQ", tier: 2, max_videos: 300, note: "QCon; data architecture talks among general software"}
+  - {handle: "@GOTO-", tier: 2, max_videos: 300, note: "GOTO conferences; mixed software talks"}
+  - {handle: "@StrangeLoopConf", tier: 2}

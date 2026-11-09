@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+data/*.wal
+data/*.log
+# The database is stored on the "db" GitHub release; the site is built and deployed by CI.
+data/*.duckdb
+site/index.html
+site/data.js
+.DS_Store

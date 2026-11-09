@@ -1,0 +1,22 @@
+# Topic ids are stable: classifications store them. Rename labels freely, never ids.
+topics:
+  - {id: ingestion, label: "Ingestion & ELT", hint: "Moving data from sources: CDC, connectors, APIs, Fivetran, Airbyte"}
+  - {id: orchestration, label: "Orchestration", hint: "Scheduling and dependencies: Airflow, Dagster, Prefect"}
+  - {id: batch_processing, label: "Batch processing", hint: "Spark, distributed compute, large-scale transforms"}
+  - {id: streaming, label: "Streaming", hint: "Kafka, Flink, real-time pipelines, event-driven systems"}
+  - {id: data_modeling, label: "Data modeling", hint: "Dimensional modeling, star schemas, Data Vault, SCDs"}
+  - {id: warehousing, label: "Data warehousing", hint: "Snowflake, BigQuery, Redshift, warehouse design"}
+  - {id: lakehouse, label: "Lakehouse & table formats", hint: "Delta Lake, Iceberg, Hudi, object storage, Databricks"}
+  - {id: sql, label: "SQL", hint: "Writing and optimizing SQL, window functions, query patterns"}
+  - {id: transformation, label: "Transformation & dbt", hint: "dbt, analytics engineering, transform layers, testing models"}
+  - {id: data_quality, label: "Data quality & observability", hint: "Tests, contracts, monitoring, lineage, anomaly detection"}
+  - {id: governance, label: "Governance & security", hint: "Catalogs, access control, privacy, compliance"}
+  - {id: cloud_platforms, label: "Cloud platforms", hint: "AWS, GCP, Azure data services and infrastructure"}
+  - {id: migration, label: "Migration", hint: "Legacy to cloud: on-prem Hadoop, Teradata, Oracle, SSIS to modern platforms"}
+  - {id: databases, label: "Database internals", hint: "Storage engines, query execution, OLAP engines, DuckDB internals"}
+  - {id: architecture, label: "Architecture", hint: "Platform design, data mesh, trade-offs, system design"}
+  - {id: career, label: "Career & interviews", hint: "Becoming a data engineer, interviews, roadmaps"}
+
+levels: [beginner, intermediate, advanced]
+
+formats: [tutorial, talk, deep_dive, project, opinion, interview, product]

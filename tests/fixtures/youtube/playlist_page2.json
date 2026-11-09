@@ -1,0 +1,8 @@
+{
+  "kind": "youtube#playlistItemListResponse",
+  "pageInfo": {"totalResults": 5, "resultsPerPage": 3},
+  "items": [
+    {"contentDetails": {"videoId": "vid_live", "videoPublishedAt": "2023-12-01T10:00:00Z"}},
+    {"contentDetails": {"videoId": "vid_old", "videoPublishedAt": "2023-11-01T10:00:00Z"}}
+  ]
+}

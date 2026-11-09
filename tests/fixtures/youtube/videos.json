@@ -1,0 +1,32 @@
+{
+  "kind": "youtube#videoListResponse",
+  "items": [
+    {"id": "vid_1hour",
+     "snippet": {"channelId": "UC_seattle", "title": "Data modeling deep dive", "description": "Star schemas &amp; SCDs",
+                 "publishedAt": "2024-03-01T10:00:00Z",
+                 "thumbnails": {"default": {"url": "https://i.ytimg.com/vi/vid_1hour/default.jpg"},
+                                "high": {"url": "https://i.ytimg.com/vi/vid_1hour/hqdefault.jpg"}}},
+     "contentDetails": {"duration": "PT1H2M3S"},
+     "statistics": {"viewCount": "50000", "likeCount": "2000", "commentCount": "150"},
+     "status": {"embeddable": true}},
+    {"id": "vid_4min",
+     "snippet": {"channelId": "UC_seattle", "title": "What is dbt?", "description": "",
+                 "publishedAt": "2024-02-01T10:00:00Z",
+                 "thumbnails": {"default": {"url": "https://i.ytimg.com/vi/vid_4min/default.jpg"}}},
+     "contentDetails": {"duration": "PT4M"},
+     "statistics": {"viewCount": "1200", "commentCount": "3"},
+     "status": {"embeddable": false}},
+    {"id": "vid_short",
+     "snippet": {"channelId": "UC_seattle", "title": "#shorts SQL tip", "publishedAt": "2024-01-01T10:00:00Z", "thumbnails": {}},
+     "contentDetails": {"duration": "PT59S"},
+     "statistics": {"viewCount": "800", "likeCount": "40", "commentCount": "1"}},
+    {"id": "vid_live",
+     "snippet": {"channelId": "UC_seattle", "title": "Live Q&A", "publishedAt": "2023-12-01T10:00:00Z", "thumbnails": {}},
+     "contentDetails": {"duration": "P0D"},
+     "statistics": {"viewCount": "300"}},
+    {"id": "vid_old",
+     "snippet": {"channelId": "UC_seattle", "title": "Hadoop to Snowflake migration", "publishedAt": "2023-11-01T10:00:00Z", "thumbnails": {}},
+     "contentDetails": {"duration": "PT45M10S"},
+     "statistics": {"viewCount": "7000", "likeCount": "310", "commentCount": "20"}}
+  ]
+}
