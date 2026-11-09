@@ -67,7 +67,7 @@ Approve the plan, let it build and test, run `/review`, then commit.
 
 ## Phase 8 — Automation and hosting
 - [x] `.github/workflows/refresh.yml`: nightly ingest → classify (limit 1000) → build → save DB to the `db` release (not git, to keep history small) → deploy to GitHub Pages
-- [ ] Repo secrets `YT_API_KEY`, `ANTHROPIC_API_KEY`; Pages source = GitHub Actions
+- [x] Repo secrets `YT_API_KEY` (+ `ANTHROPIC_API_KEY` optional: without it classify is skipped); Pages source = GitHub Actions
 - [x] README: setup, commands, tuning, cost notes
 
 **Done when:** a manual "Run workflow" succeeds and the Pages URL serves the site.
