@@ -49,6 +49,7 @@ def test_build_writes_page_and_ranked_data(con, tmp_path):
         "evergreen": True, "summary": "How Kafka stores logs.", "embeddable": True}
     assert {"id": "migration", "label": "Migration"} in data["topics"]
     assert data["levels"] == TAXONOMY["levels"] and data["formats"] == TAXONOMY["formats"]
+    assert data["paths"] == {"streaming": ["high", "low"]}  # both advanced deep dives, best first
     assert (out / "index.html").read_text() == site.TEMPLATE.read_text()
 
 

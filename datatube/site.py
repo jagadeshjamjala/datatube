@@ -4,7 +4,7 @@ import shutil
 from datetime import date
 from pathlib import Path
 
-from datatube.rank import ranked
+from datatube.rank import learning_paths, ranked
 
 SITE_DIR = Path(__file__).resolve().parent.parent / "site"
 TEMPLATE = Path(__file__).resolve().parent / "templates" / "index.html"
@@ -32,13 +32,15 @@ def build(con, min_duration: int, taxonomy: dict, out: Path | None = None) -> in
     """Write index.html and data.js into `out` (default site/). Returns the number of videos."""
     out = Path(out or SITE_DIR)
     out.mkdir(parents=True, exist_ok=True)
-    videos = [_video(r) for r in ranked(con, min_duration)]
+    rows = ranked(con, min_duration)
+    videos = [_video(r) for r in rows]
     data = {
         "generated": date.today().isoformat(),
         "topics": [{"id": t["id"], "label": t["label"]} for t in taxonomy["topics"]],
         "levels": taxonomy["levels"],
         "formats": taxonomy["formats"],
         "videos": videos,
+        "paths": learning_paths(rows),
     }
     # A script file rather than JSON, so the page also works from file:// where fetch() is blocked.
     # json.dumps escapes non-ASCII (incl. U+2028); escaping "<" too keeps "</script>" inert even if inlined.

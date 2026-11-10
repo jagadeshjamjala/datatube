@@ -38,3 +38,24 @@ def ranked(con, min_duration: int, limit: int | None = None) -> list[dict]:
     cur = con.execute(sql, params)
     cols = [d[0] for d in cur.description]
     return [dict(zip(cols, row)) for row in cur.fetchall()]
+
+
+PATH_FORMATS = ("tutorial", "deep_dive", "talk", "project")  # formats that teach; no interviews, opinions or demos
+LEVELS = ("beginner", "intermediate", "advanced")
+
+
+def learning_paths(rows: list[dict], per_level: int = 4, per_channel: int = 2) -> dict[str, list[str]]:
+    """Per primary topic: the best `per_level` teaching videos at each level, beginner first,
+    with at most `per_channel` from one channel per level so a single creator can't fill it.
+    `rows` must already be best-first, as ranked() returns them."""
+    picked: dict[tuple, list[str]] = {}
+    from_channel: dict[tuple, int] = {}
+    for r in rows:
+        bucket = picked.setdefault((r["primary_topic"], r["level"]), [])
+        seat = (r["primary_topic"], r["level"], r["channel"])
+        if r["format"] in PATH_FORMATS and len(bucket) < per_level and from_channel.get(seat, 0) < per_channel:
+            bucket.append(r["video_id"])
+            from_channel[seat] = from_channel.get(seat, 0) + 1
+    topics = sorted({topic for topic, _ in picked})
+    paths = {t: [v for level in LEVELS for v in picked.get((t, level), [])] for t in topics}
+    return {t: ids for t, ids in paths.items() if ids}

@@ -54,3 +54,28 @@ def test_rows_carry_site_fields_and_limit(con):
     [top] = ranked(con, min_duration=240, limit=1)
     assert top["video_id"] == "b" and top["channel"] == "Core DE" and top["topics"] == ["streaming"]
     assert isinstance(top["score"], float)
+
+
+def test_learning_paths_order_cap_and_formats():
+    from datatube.rank import learning_paths
+
+    def row(vid, topic, level, fmt="tutorial", channel="A"):
+        return {"video_id": vid, "primary_topic": topic, "level": level, "format": fmt, "channel": channel}
+
+    rows = [  # already best-first, as ranked() returns them
+        row("adv1", "streaming", "advanced"),
+        row("demo", "streaming", "beginner", fmt="product"),
+        row("beg1", "streaming", "beginner"),
+        row("int1", "streaming", "intermediate", fmt="talk"),
+        row("beg2", "streaming", "beginner", fmt="deep_dive"),
+        row("beg3", "streaming", "beginner"),
+        row("adv2", "streaming", "advanced"),
+        row("adv3", "streaming", "advanced"),  # third from channel A at this level: skipped
+        row("adv4", "streaming", "advanced", channel="B"),
+        row("chat", "career", "beginner", fmt="interview"),
+        row("sql1", "sql", "intermediate", fmt="project"),
+    ]
+    assert learning_paths(rows, per_level=3, per_channel=2) == {
+        "sql": ["sql1"],
+        "streaming": ["beg1", "beg2", "int1", "adv1", "adv2", "adv4"],  # beginner first; demo and 3rd-from-A skipped
+    }  # career has only an interview, so no path at all

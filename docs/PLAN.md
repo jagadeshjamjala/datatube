@@ -73,7 +73,7 @@ Approve the plan, let it build and test, run `/review`, then commit.
 **Done when:** a manual "Run workflow" succeeds and the Pages URL serves the site.
 
 ## Phase 9 — Make it yours (pick any)
-- [ ] Learning paths: ordered beginner → advanced lists per topic
+- [x] Learning paths: ordered beginner → advanced lists per topic
 - [ ] Reddit r/dataengineering as a community source
 - [ ] Transcripts for better tagging of long conference talks
 - [ ] "Submit a video" form feeding a review queue

@@ -47,6 +47,15 @@
   label.check { display: flex; gap: 6px; align-items: center; font-size: 14px; cursor: pointer; }
   #count { color: var(--muted); margin: 6px 0 12px; font-size: 14px; }
 
+  #path { margin: 0 0 18px; padding: 12px 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
+  #path summary { cursor: pointer; font-weight: 600; }
+  #path-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 12px; }
+  .path-col { display: flex; flex-direction: column; gap: 12px; }
+  .path-col > h3 { margin: 0; font-size: 13px; text-transform: capitalize; color: var(--muted); }
+  .path-col .summary { display: none; }  /* keep the path compact; the grid below has full cards */
+  .step { position: absolute; left: 6px; top: 6px; min-width: 22px; padding: 1px 6px; border-radius: 999px;
+          background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; text-align: center; }
+
   #grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
   .card { display: flex; flex-direction: column; color: inherit; text-decoration: none; background: var(--panel);
           border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
@@ -103,6 +112,10 @@
       <label class="check"><input type="checkbox" id="evergreen"> Evergreen only</label>
     </div>
     <p id="count" aria-live="polite"></p>
+    <details id="path" open hidden>
+      <summary>Learning path: <span id="path-title"></span></summary>
+      <div id="path-cols"></div>
+    </details>
     <div id="grid"></div>
     <button id="more" type="button">Show more</button>
   </main>
@@ -202,7 +215,7 @@ function update() { state.shown = PAGE; render(); }
 
 // ---------- rendering ----------
 
-function card(v) {
+function card(v, step) {
   const a = el("a", "card");
   a.href = `https://www.youtube.com/watch?v=${encodeURIComponent(v.id)}`;
   const thumb = el("div", "thumb");
@@ -212,6 +225,7 @@ function card(v) {
   img.src = `https://i.ytimg.com/vi/${encodeURIComponent(v.id)}/mqdefault.jpg`;
   img.addEventListener("error", () => img.remove());
   thumb.append(img, el("span", "dur", duration(v.duration)));
+  if (step) thumb.append(el("span", "step", step));
 
   const tags = el("div", "tags");
   v.topics.forEach((t) => tags.append(el("span", null, topicLabel[t] || t)));
@@ -253,6 +267,27 @@ function render() {
   $("grid").replaceChildren(...list.slice(0, state.shown).map(card));
   $("count").textContent = `${list.length.toLocaleString()} videos`;
   $("more").hidden = list.length <= state.shown;
+  renderPath();
+}
+
+// A topic's path shows only on the plain topic view, so it never contradicts active filters.
+const videoById = new Map(D.videos.map((v) => [v.id, v]));
+function renderPath() {
+  const filtered = state.level || state.format || state.evergreen || state.words.length;
+  const path = (!filtered && state.topic && D.paths[state.topic]) || [];
+  $("path").hidden = !path.length;
+  if (!path.length) return;
+  $("path-title").textContent = topicLabel[state.topic];
+  let step = 0;
+  const videos = path.map((id) => videoById.get(id)).filter(Boolean);
+  const columns = D.levels.map((level) => {
+    const inLevel = videos.filter((v) => v.level === level);
+    if (!inLevel.length) return null;
+    const col = el("div", "path-col");
+    col.append(el("h3", null, level), ...inLevel.map((v) => card(v, ++step)));
+    return col;
+  }).filter(Boolean);
+  $("path-cols").replaceChildren(...columns);
 }
 
 // ---------- player ----------
