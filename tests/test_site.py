@@ -51,6 +51,7 @@ def test_build_writes_page_and_ranked_data(con, tmp_path):
     assert data["levels"] == TAXONOMY["levels"] and data["formats"] == TAXONOMY["formats"]
     assert data["paths"] == {"streaming": ["high", "low"]}  # both advanced deep dives, best first
     assert (out / "index.html").read_text() == site.TEMPLATE.read_text()
+    assert (out / "og.png").read_bytes() == site.PREVIEW.read_bytes()
 
 
 def test_only_known_blocked_videos_skip_the_player(con, tmp_path):
@@ -74,6 +75,7 @@ def test_template_never_renders_with_innerhtml():
     page = site.TEMPLATE.read_text()
     assert "innerHTML" not in page and "insertAdjacentHTML" not in page and "document.write" not in page
     assert "youtube-nocookie.com/embed/" in page and '<script src="data.js">' in page
+    assert '<meta property="og:image" content="https://' in page  # crawlers ignore relative image URLs
 
 
 def test_demo_builds_from_fixtures_without_touching_real_db(tmp_path, monkeypatch):

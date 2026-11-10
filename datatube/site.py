@@ -8,6 +8,7 @@ from datatube.rank import learning_paths, ranked
 
 SITE_DIR = Path(__file__).resolve().parent.parent / "site"
 TEMPLATE = Path(__file__).resolve().parent / "templates" / "index.html"
+PREVIEW = TEMPLATE.with_name("og.png")  # link-preview image named in the page's og:image tag
 
 
 def _video(r: dict) -> dict:
@@ -47,4 +48,5 @@ def build(con, min_duration: int, taxonomy: dict, out: Path | None = None) -> in
     payload = json.dumps(data, separators=(",", ":")).replace("<", "\\u003c")
     (out / "data.js").write_text(f"window.DATATUBE = {payload};\n")
     shutil.copyfile(TEMPLATE, out / "index.html")
+    shutil.copyfile(PREVIEW, out / "og.png")
     return len(videos)
