@@ -77,6 +77,7 @@ def test_template_never_renders_with_innerhtml():
     assert "youtube-nocookie.com/embed/" in page and '<script src="data.js">' in page
     assert '<meta property="og:image" content="https://' in page  # crawlers ignore relative image URLs
     assert ".map(card)" not in page  # map's index argument would become card()'s step badge
+    assert "light-dark(" not in page  # unsupported before Safari 17.5 / Chrome 123: colours fell back to plain white
 
 
 def test_demo_builds_from_fixtures_without_touching_real_db(tmp_path, monkeypatch):

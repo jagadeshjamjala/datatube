@@ -18,15 +18,23 @@
 <style>
   :root {
     color-scheme: light dark;
-    --bg: light-dark(#f7f7f8, #121316);
-    --panel: light-dark(#ffffff, #1b1d22);
-    --text: light-dark(#17181c, #e8e9ec);
-    --muted: light-dark(#5c6070, #a0a4b0);
-    --line: light-dark(#e2e3e8, #2c2f36);
-    --accent: light-dark(#2457d6, #7aa2ff);
-    --chip: light-dark(#eef0f5, #262931);
-    --thumb: light-dark(#dfe2ea, #2a2d35);
+    --bg: #f7f7f8; --panel: #ffffff; --text: #17181c; --muted: #5c6070; --line: #e2e3e8;
+    --accent: #2457d6; --chip: #eef0f5; --thumb: #dfe2ea; --ever: #17703a;
   }
+  /* Plain overrides, not the CSS light-dark function: older browsers ignore it and showed all text in default white.
+     Dark applies when the system is dark and the visitor hasn't picked light, or when they picked dark. */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #121316; --panel: #1b1d22; --text: #e8e9ec; --muted: #a0a4b0; --line: #2c2f36;
+      --accent: #7aa2ff; --chip: #262931; --thumb: #2a2d35; --ever: #6fd396;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #121316; --panel: #1b1d22; --text: #e8e9ec; --muted: #a0a4b0; --line: #2c2f36;
+    --accent: #7aa2ff; --chip: #262931; --thumb: #2a2d35; --ever: #6fd396;
+  }
+  :root[data-theme="light"] { color-scheme: light; }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--text);
          font: 15px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
@@ -79,7 +87,7 @@
   .meta, .summary { margin: 0; color: var(--muted); font-size: 13px; }
   .tags { display: flex; flex-wrap: wrap; gap: 4px; }
   .tags span { padding: 1px 7px; border-radius: 999px; background: var(--chip); font-size: 12px; }
-  .tags .ever { color: light-dark(#17703a, #6fd396); }
+  .tags .ever { color: var(--ever); }
   #more { display: block; margin: 22px auto; padding: 9px 22px; border: 1px solid var(--line); border-radius: 8px;
           background: var(--panel); cursor: pointer; }
   #more[hidden] { display: none; }  /* display:block above would override the hidden attribute */
@@ -316,10 +324,14 @@ $("close").addEventListener("click", () => player.close());
 // ---------- theme ----------
 
 const dark = matchMedia("(prefers-color-scheme: dark)");
-function applyTheme(theme) { document.documentElement.style.colorScheme = theme || "light dark"; }
+const root = document.documentElement;
+function applyTheme(theme) {
+  if (theme === "light" || theme === "dark") root.dataset.theme = theme;
+  else delete root.dataset.theme;  // follow the system
+}
 try { applyTheme(localStorage.getItem("theme")); } catch { /* storage blocked: follow the system */ }
 $("theme").addEventListener("click", () => {
-  const current = document.documentElement.style.colorScheme;
+  const current = root.dataset.theme;
   const isDark = current === "dark" || (current !== "light" && dark.matches);
   const next = isDark ? "light" : "dark";
   applyTheme(next);
