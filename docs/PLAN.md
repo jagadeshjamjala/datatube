@@ -1,4 +1,4 @@
-# DataTube build plan
+# DataEngTube build plan
 
 Run each phase in a fresh Claude Code session: `/clear`, then `/next-phase`.
 Approve the plan, let it build and test, run `/review`, then commit.

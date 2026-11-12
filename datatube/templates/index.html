@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DataTube: videos for data engineers</title>
+<title>DataEngTube: videos for data engineers</title>
 <meta name="description" content="A curated, searchable library of data engineering videos.">
 <!-- Link previews. Crawlers need absolute URLs, so these name the site's domain (set in the repo's Pages settings). -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="DataTube: videos for data engineers">
+<meta property="og:title" content="DataEngTube: videos for data engineers">
 <meta property="og:description" content="A curated, searchable library of data engineering videos, with learning paths per topic.">
-<meta property="og:url" content="https://datatube.data-engineering-hub.com/">
-<meta property="og:image" content="https://datatube.data-engineering-hub.com/og.png">
+<meta property="og:url" content="https://dataengtube.com/">
+<meta property="og:image" content="https://dataengtube.com/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="DataTube: a curated, searchable library of data engineering videos">
+<meta property="og:image:alt" content="DataEngTube: a curated, searchable library of data engineering videos">
 <meta name="twitter:card" content="summary_large_image">
 <style>
   :root {
@@ -104,7 +104,7 @@
 </head>
 <body>
 <header>
-  <h1>Data<span>Tube</span></h1>
+  <h1>DataEng<span>Tube</span></h1>
   <input id="q" type="search" placeholder="Search titles, channels, summaries" aria-label="Search videos">
   <select id="sort" aria-label="Sort by">
     <option value="best">Best</option>
@@ -274,7 +274,7 @@ function render() {
   });
 
   const list = base.filter((v) => !state.topic || v.topics.includes(state.topic)).sort(SORTS[state.sort]);
-  $("grid").replaceChildren(...list.slice(0, state.shown).map(card));
+  $("grid").replaceChildren(...list.slice(0, state.shown).map((v) => card(v)));
   $("count").textContent = `${list.length.toLocaleString()} videos`;
   $("more").hidden = list.length <= state.shown;
   renderPath();

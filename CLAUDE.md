@@ -1,7 +1,7 @@
-# DataTube
+# DataEngTube
 
 A curated video library for data engineers, inspired by Karpathy's HackerTube
-(its pipeline and site; DataTube has no Hacker News source).
+(its pipeline and site; DataEngTube has no Hacker News source).
 It collects YouTube videos from data engineering creators, vendors and conferences,
 uses an LLM to keep only genuine data engineering content and tag it, ranks the
 results, and publishes a static, searchable site.
