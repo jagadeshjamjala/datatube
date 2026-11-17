@@ -19,6 +19,8 @@ creators:
   - {handle: "@techTFQ", tier: 1, note: "SQL tutorials and query patterns"}
   - {handle: "@sumitmittal07", tier: 1, note: "Big data, Spark, Hadoop-to-cloud"}
   - {handle: "@mr.ktalkstech", tier: 1, note: "Azure Data Factory, Databricks, ADF migration"}
+  - {handle: "@AnshLambaJSR", tier: 1, note: "Ansh Lamba; end-to-end DE projects and tutorials (not @AnshLamba, a different account)"}
+  - {handle: "@DataBeli", tier: 1, note: "Narender Kumar; Databricks and data architecture"}
   - {handle: "@rockthejvm", tier: 2, note: "Spark and Scala; also non-DE Scala content"}
   - {handle: "@GuyInACube", tier: 2, note: "Microsoft Fabric / Power BI; Synapse to Fabric moves"}
 
