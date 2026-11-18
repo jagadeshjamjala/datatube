@@ -17,6 +17,26 @@ topics:
   - {id: architecture, label: "Architecture", hint: "Platform design, data mesh, trade-offs, system design"}
   - {id: career, label: "Career & interviews", hint: "Becoming a data engineer, interviews, roadmaps"}
 
+# Roadmaps chain topics in the order to learn them; the site numbers each step.
+# Each one is a distinct data engineering role, named with its main tools.
+roadmaps:
+  - id: analytics_engineering
+    name: "Analytics engineering (SQL + dbt)"
+    description: "Turn raw tables into tested, trusted models in a warehouse like Snowflake or BigQuery."
+    topics: [sql, data_modeling, warehousing, transformation, data_quality]
+  - id: batch_pipelines
+    name: "Batch pipelines (Spark + Airflow)"
+    description: "Extract data from APIs and databases, process it at scale with Spark, and schedule it reliably."
+    topics: [ingestion, batch_processing, orchestration, lakehouse]
+  - id: streaming
+    name: "Real-time streaming (Kafka + Flink)"
+    description: "Capture changes as they happen, process events in real time, and land them in lakehouse tables."
+    topics: [ingestion, streaming, lakehouse]
+  - id: platform_architecture
+    name: "Data platform architecture"
+    description: "For senior and lead engineers: choose the cloud stack, design and govern the platform, and migrate legacy systems."
+    topics: [cloud_platforms, databases, architecture, governance, migration]
+
 levels: [beginner, intermediate, advanced]
 
 formats: [tutorial, talk, deep_dive, project, opinion, interview, product]

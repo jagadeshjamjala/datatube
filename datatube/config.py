@@ -74,6 +74,12 @@ def load_taxonomy(path: Path = CONFIG_DIR / "taxonomy.yaml") -> dict:
         seen.add(topic["id"])
     if not seen:
         raise ConfigError(f"{name}: no topics defined")
+    for i, road in enumerate(data.get("roadmaps") or []):
+        where = f"{name}: roadmaps[{i}]"
+        _require(road, ("id", "name", "topics"), where)
+        unknown = [t for t in road["topics"] if t not in seen]
+        if unknown:
+            raise ConfigError(f"{where}: unknown topic(s) {unknown}")
     for key in ("levels", "formats"):
         values = data.get(key)
         if not isinstance(values, list) or not values:

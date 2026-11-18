@@ -33,6 +33,7 @@ def test_real_taxonomy_loads_and_has_migration():
     assert 14 <= len(tax["topics"]) <= 18
     assert tax["levels"] == ["beginner", "intermediate", "advanced"]
     assert tax["formats"] == ["tutorial", "talk", "deep_dive", "project", "opinion", "interview", "product"]
+    assert tax["roadmaps"] and all(r["topics"] for r in tax["roadmaps"])  # topic ids checked by load_taxonomy
 
 
 def test_channel_defaults_applied(tmp_path):
@@ -67,6 +68,8 @@ def test_bad_channels(tmp_path, change, message):
         ({"topics": [{"id": "sql", "hint": "h"}]}, r"topics\[0\]: missing 'label'"),
         ({"topics": []}, "no topics defined"),
         ({"formats": []}, "'formats' must be a non-empty list"),
+        ({"roadmaps": [{"id": "r", "name": "R", "topics": ["sql", "spark"]}]}, r"roadmaps\[0\]: unknown topic\(s\) \['spark'\]"),
+        ({"roadmaps": [{"id": "r", "topics": ["sql"]}]}, r"roadmaps\[0\]: missing 'name'"),
     ],
 )
 def test_bad_taxonomy(tmp_path, change, message):
