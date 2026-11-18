@@ -17,6 +17,21 @@ topics:
   - {id: architecture, label: "Architecture", hint: "Platform design, data mesh, trade-offs, system design"}
   - {id: career, label: "Career & interviews", hint: "Becoming a data engineer, interviews, roadmaps"}
 
+# Roadmaps chain topics in the order to learn them; the site numbers each step.
+roadmaps:
+  - id: foundations
+    name: "Become a data engineer"
+    description: "The core path: query and model data, load it, transform it, schedule it, and trust it."
+    topics: [sql, data_modeling, warehousing, ingestion, transformation, orchestration, data_quality]
+  - id: big_data
+    name: "Big data and streaming"
+    description: "From distributed batch jobs to lakehouses and real-time pipelines."
+    topics: [batch_processing, lakehouse, streaming, databases]
+  - id: platform
+    name: "Design a data platform"
+    description: "Choosing cloud services, designing the architecture, governing it, and migrating legacy systems onto it."
+    topics: [cloud_platforms, architecture, governance, migration]
+
 levels: [beginner, intermediate, advanced]
 
 formats: [tutorial, talk, deep_dive, project, opinion, interview, product]

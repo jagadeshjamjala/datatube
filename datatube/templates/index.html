@@ -74,6 +74,20 @@
   .step { position: absolute; left: 6px; top: 6px; min-width: 22px; padding: 1px 6px; border-radius: 999px;
           background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; text-align: center; }
 
+  #roadmaps { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin: 0 0 18px; }
+  #roadmaps[hidden], #road-steps[hidden] { display: none; }
+  .roadmap { padding: 12px 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
+  .roadmap h3 { margin: 0 0 4px; font-size: 15px; }
+  .roadmap p { margin: 0 0 10px; color: var(--muted); font-size: 13px; }
+  .roadmap ol { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 4px; }
+  .roadmap li button { display: flex; gap: 8px; align-items: center; width: 100%; padding: 4px 6px; border: 0;
+                       border-radius: 6px; background: none; text-align: left; cursor: pointer; }
+  .roadmap li button:hover { background: var(--chip); }
+  .roadmap .num { min-width: 22px; padding: 1px 6px; border-radius: 999px; background: var(--accent); color: #fff;
+                  font-size: 12px; font-weight: 700; text-align: center; }
+  .roadmap .n { margin-left: auto; color: var(--muted); font-size: 13px; }
+  #road-steps { display: flex; flex-direction: column; gap: 4px; margin: 0 0 12px; font-size: 14px; color: var(--muted); }
+  #road-steps button { padding: 0; border: 0; background: none; color: var(--accent); cursor: pointer; }
   #grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
   .card { display: flex; flex-direction: column; color: inherit; text-decoration: none; background: var(--panel);
           border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
@@ -130,6 +144,8 @@
       <label class="check"><input type="checkbox" id="evergreen"> Evergreen only</label>
     </div>
     <p id="count" aria-live="polite"></p>
+    <section id="roadmaps" aria-label="Roadmaps" hidden></section>
+    <div id="road-steps" hidden></div>
     <details id="path" open hidden>
       <summary>Learning path: <span id="path-title"></span></summary>
       <div id="path-cols"></div>
@@ -286,6 +302,49 @@ function render() {
   $("count").textContent = `${list.length.toLocaleString()} videos`;
   $("more").hidden = list.length <= state.shown;
   renderPath();
+  renderRoadmaps(counts);
+}
+
+// ---------- roadmaps: topics numbered in the order to learn them ----------
+
+function goToTopic(id) { state.topic = id; update(); window.scrollTo(0, 0); }
+
+function topicLink(id, text) {
+  const b = el("button", null, text);
+  b.type = "button";
+  b.addEventListener("click", () => goToTopic(id));
+  return b;
+}
+
+// Roadmap cards on the plain "All topics" view; on a topic, where it sits in each roadmap.
+function renderRoadmaps(counts) {
+  const filtered = state.level || state.format || state.evergreen || state.words.length;
+  const roads = D.roadmaps || [];
+  $("roadmaps").hidden = Boolean(state.topic || filtered || !roads.length);
+  if (!$("roadmaps").hidden) {
+    $("roadmaps").replaceChildren(...roads.map((r) => {
+      const box = el("div", "roadmap");
+      const ol = el("ol");
+      r.topics.forEach((t, i) => {
+        const b = topicLink(t);
+        b.append(el("span", "num", i + 1), el("span", null, topicLabel[t] || t), el("span", "n", (counts.get(t) || 0).toLocaleString()));
+        const li = el("li");
+        li.append(b);
+        ol.append(li);
+      });
+      box.append(el("h3", null, r.name), el("p", null, r.description), ol);
+      return box;
+    }));
+  }
+  const steps = roads.filter((r) => r.topics.includes(state.topic)).map((r) => {
+    const i = r.topics.indexOf(state.topic), line = el("div");
+    line.append(`Step ${i + 1} of ${r.topics.length} in ${r.name}`);
+    const next = r.topics[i + 1];
+    if (next) line.append(" · next: ", topicLink(next, `${i + 2}. ${topicLabel[next] || next} →`));
+    return line;
+  });
+  $("road-steps").hidden = !steps.length;
+  $("road-steps").replaceChildren(...steps);
 }
 
 // A topic's path shows only on the plain topic view, so it never contradicts active filters.

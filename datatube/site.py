@@ -42,6 +42,7 @@ def build(con, min_duration: int, taxonomy: dict, out: Path | None = None) -> in
         "formats": taxonomy["formats"],
         "videos": videos,
         "paths": learning_paths(rows),
+        "roadmaps": [{k: r.get(k, "") for k in ("id", "name", "description", "topics")} for r in taxonomy.get("roadmaps") or []],
     }
     # A script file rather than JSON, so the page also works from file:// where fetch() is blocked.
     # json.dumps escapes non-ASCII (incl. U+2028); escaping "<" too keeps "</script>" inert even if inlined.

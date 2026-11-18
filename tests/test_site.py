@@ -50,6 +50,7 @@ def test_build_writes_page_and_ranked_data(con, tmp_path):
     assert {"id": "migration", "label": "Migration"} in data["topics"]
     assert data["levels"] == TAXONOMY["levels"] and data["formats"] == TAXONOMY["formats"]
     assert data["paths"] == {"streaming": ["high", "low"]}  # both advanced deep dives, best first
+    assert data["roadmaps"][0] == {k: TAXONOMY["roadmaps"][0][k] for k in ("id", "name", "description", "topics")}
     assert (out / "index.html").read_text() == site.TEMPLATE.read_text()
     assert (out / "og.png").read_bytes() == site.PREVIEW.read_bytes()
 
