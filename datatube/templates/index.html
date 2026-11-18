@@ -74,18 +74,21 @@
   .step { position: absolute; left: 6px; top: 6px; min-width: 22px; padding: 1px 6px; border-radius: 999px;
           background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; text-align: center; }
 
-  #roadmaps { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin: 0 0 18px; }
+  #roadmaps { margin: 0 0 18px; padding: 12px 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
+  #roadmaps summary { cursor: pointer; font-weight: 600; }
+  #roadmaps summary .hint { color: var(--muted); font-weight: 400; font-size: 13px; }
   #roadmaps[hidden], #road-steps[hidden] { display: none; }
-  .roadmap { padding: 12px 14px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; }
-  .roadmap h3 { margin: 0 0 4px; font-size: 15px; }
-  .roadmap p { margin: 0 0 10px; color: var(--muted); font-size: 13px; }
-  .roadmap ol { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 4px; }
-  .roadmap li button { display: flex; gap: 8px; align-items: center; width: 100%; padding: 4px 6px; border: 0;
-                       border-radius: 6px; background: none; text-align: left; cursor: pointer; }
-  .roadmap li button:hover { background: var(--chip); }
-  .roadmap .num { min-width: 22px; padding: 1px 6px; border-radius: 999px; background: var(--accent); color: #fff;
+  .roadmap { padding: 12px 0 2px; }
+  .roadmap + .roadmap { border-top: 1px solid var(--line); margin-top: 10px; }
+  .roadmap h3 { margin: 0 0 8px; font-size: 14px; }
+  .roadmap ol { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  .roadmap li { display: flex; align-items: center; gap: 6px; }
+  .roadmap li + li::before { content: "→"; color: var(--muted); }
+  .roadmap li button { display: flex; gap: 6px; align-items: center; padding: 3px 11px 3px 4px; border: 1px solid var(--line);
+                       border-radius: 999px; background: var(--chip); font-size: 13px; cursor: pointer; }
+  .roadmap li button:hover { border-color: var(--accent); }
+  .roadmap .num { min-width: 20px; padding: 0 5px; border-radius: 999px; background: var(--accent); color: #fff;
                   font-size: 12px; font-weight: 700; text-align: center; }
-  .roadmap .n { margin-left: auto; color: var(--muted); font-size: 13px; }
   #road-steps { display: flex; flex-direction: column; gap: 4px; margin: 0 0 12px; font-size: 14px; color: var(--muted); }
   #road-steps button { padding: 0; border: 0; background: none; color: var(--accent); cursor: pointer; }
   #grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
@@ -144,7 +147,10 @@
       <label class="check"><input type="checkbox" id="evergreen"> Evergreen only</label>
     </div>
     <p id="count" aria-live="polite"></p>
-    <section id="roadmaps" aria-label="Roadmaps" hidden></section>
+    <details id="roadmaps" hidden>
+      <summary>Learning roadmaps <span class="hint" id="roadmaps-hint"></span></summary>
+      <div id="roadmap-list"></div>
+    </details>
     <div id="road-steps" hidden></div>
     <details id="path" open hidden>
       <summary>Learning path: <span id="path-title"></span></summary>
@@ -302,7 +308,7 @@ function render() {
   $("count").textContent = `${list.length.toLocaleString()} videos`;
   $("more").hidden = list.length <= state.shown;
   renderPath();
-  renderRoadmaps(counts);
+  renderRoadmaps();
 }
 
 // ---------- roadmaps: topics numbered in the order to learn them ----------
@@ -317,22 +323,25 @@ function topicLink(id, text) {
 }
 
 // Roadmap cards on the plain "All topics" view; on a topic, where it sits in each roadmap.
-function renderRoadmaps(counts) {
+function renderRoadmaps() {
   const filtered = state.level || state.format || state.evergreen || state.words.length;
   const roads = D.roadmaps || [];
   $("roadmaps").hidden = Boolean(state.topic || filtered || !roads.length);
   if (!$("roadmaps").hidden) {
-    $("roadmaps").replaceChildren(...roads.map((r) => {
+    $("roadmaps-hint").textContent = `· ${roads.length} tracks, topics in the order to learn them`;
+    $("roadmap-list").replaceChildren(...roads.map((r) => {
       const box = el("div", "roadmap");
       const ol = el("ol");
       r.topics.forEach((t, i) => {
         const b = topicLink(t);
-        b.append(el("span", "num", i + 1), el("span", null, topicLabel[t] || t), el("span", "n", (counts.get(t) || 0).toLocaleString()));
+        b.append(el("span", "num", i + 1), el("span", null, topicLabel[t] || t));
         const li = el("li");
         li.append(b);
         ol.append(li);
       });
-      box.append(el("h3", null, r.name), el("p", null, r.description), ol);
+      const h = el("h3", null, r.name);
+      h.title = r.description;  // keep the panel compact; the description shows on hover
+      box.append(h, ol);
       return box;
     }));
   }
