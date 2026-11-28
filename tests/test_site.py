@@ -51,7 +51,7 @@ def test_build_writes_page_and_ranked_data(con, tmp_path):
     assert data["levels"] == TAXONOMY["levels"] and data["formats"] == TAXONOMY["formats"]
     assert data["paths"] == {"streaming": ["high", "low"]}  # both advanced deep dives, best first
     assert data["roadmaps"][0] == {k: TAXONOMY["roadmaps"][0][k] for k in ("id", "name", "description", "topics")}
-    assert (out / "index.html").read_text() == site.TEMPLATE.read_text()
+    assert (out / "index.html").read_text() == site._with_csp(site.TEMPLATE.read_text())
     assert (out / "og.png").read_bytes() == site.PREVIEW.read_bytes()
 
 
@@ -88,3 +88,11 @@ def test_demo_builds_from_fixtures_without_touching_real_db(tmp_path, monkeypatc
     titles = {v["title"] for v in read_data(tmp_path / "site")["videos"]}
     assert "#shorts SQL tip" not in titles and titles  # short video filtered, something built
     assert not (tmp_path / "must_not_exist.duckdb").exists()
+
+
+def test_page_has_strict_csp_matching_its_inline_code(con, tmp_path):
+    site.build(con, 240, TAXONOMY, out=tmp_path)
+    page = (tmp_path / "index.html").read_text()
+    assert "__CSP__" not in page and "unsafe-inline" not in page
+    for tag in ("script", "style"):
+        assert site._sha256(page, tag) in page  # hash still matches after the policy is inserted

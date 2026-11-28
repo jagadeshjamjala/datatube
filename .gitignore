@@ -10,3 +10,5 @@ site/index.html
 site/data.js
 .DS_Store
 site/og.png
+.env
+.env.*

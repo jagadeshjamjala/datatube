@@ -7,10 +7,7 @@ on:
     - cron: "17 6 * * *"  # 06:17 UTC daily
   workflow_dispatch:
 
-permissions:
-  contents: write  # upload the database to the release
-  pages: write
-  id-token: write
+permissions: {}  # nothing by default; each job asks for only what it needs
 
 concurrency:
   group: refresh  # two runs writing the same database would lose one run's work
@@ -19,10 +16,12 @@ concurrency:
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    env:
-      GH_TOKEN: ${{ github.token }}
+    permissions:
+      contents: write  # download and upload the database release asset
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false  # don't leave the token in .git/config for later steps
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
@@ -33,6 +32,8 @@ jobs:
       # Fails if the release asset is missing: rebuilding from scratch would burn quota and LLM spend.
       - name: Download database
         id: download
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: gh release download db --pattern datatube.duckdb --dir data
 
       - name: Run pipeline
@@ -46,9 +47,10 @@ jobs:
       # so the partial work is valid and the next run resumes from it.
       - name: Save database
         if: always() && steps.download.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: gh release upload db data/datatube.duckdb --clobber
 
-      - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:
           path: site
@@ -58,9 +60,13 @@ jobs:
   deploy:
     needs: refresh
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
     steps:
+      - uses: actions/configure-pages@v6
       - id: deploy
         uses: actions/deploy-pages@v5
