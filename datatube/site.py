@@ -1,5 +1,8 @@
 """Build the static site: a fixed index.html plus data.js holding the ranked videos."""
+import base64
+import hashlib
 import json
+import re
 import shutil
 from datetime import date
 from pathlib import Path
@@ -29,6 +32,27 @@ def _video(r: dict) -> dict:
     }
 
 
+def _sha256(page: str, tag: str) -> str:
+    """CSP hash of the page's single inline <script> or <style> block."""
+    body = re.search(rf"<{tag}>(.*?)</{tag}>", page, re.S).group(1)
+    return "'sha256-" + base64.b64encode(hashlib.sha256(body.encode()).digest()).decode() + "'"
+
+
+def _with_csp(page: str) -> str:
+    """Allow only this page's own inline code (by hash), data.js, YouTube thumbnails and the player.
+    Hashed at build time, so editing the template never leaves a stale policy."""
+    csp = "; ".join([
+        "default-src 'none'",
+        f"script-src 'self' {_sha256(page, 'script')}",
+        f"style-src {_sha256(page, 'style')}",
+        "img-src https://i.ytimg.com",
+        "frame-src https://www.youtube-nocookie.com",
+        "base-uri 'none'",
+        "form-action 'none'",
+    ])
+    return page.replace("__CSP__", csp)
+
+
 def build(con, min_duration: int, taxonomy: dict, out: Path | None = None) -> int:
     """Write index.html and data.js into `out` (default site/). Returns the number of videos."""
     out = Path(out or SITE_DIR)
@@ -48,6 +72,6 @@ def build(con, min_duration: int, taxonomy: dict, out: Path | None = None) -> in
     # json.dumps escapes non-ASCII (incl. U+2028); escaping "<" too keeps "</script>" inert even if inlined.
     payload = json.dumps(data, separators=(",", ":")).replace("<", "\\u003c")
     (out / "data.js").write_text(f"window.DATATUBE = {payload};\n")
-    shutil.copyfile(TEMPLATE, out / "index.html")
+    (out / "index.html").write_text(_with_csp(TEMPLATE.read_text()))
     shutil.copyfile(PREVIEW, out / "og.png")
     return len(videos)
